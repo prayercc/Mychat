@@ -1,0 +1,21 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "hot chat",
+  "main": "app.js",
+  "scripts": {
+    "dev": "supervisor app.js"
+  },
+  "author": "prayer",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "multer": "^1.4.1",
+    "socket.io-client": "^2.1.1"
+  }
+}
