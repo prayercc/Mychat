@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>chatRoom</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="cover">
+      <input type="text" name="" value="">
+    </div>
+    <div class="container">
+      <div class="left">
+        <div class="userList">
+          <p>在线列表</p>
+          <ul class="users">
+            <!-- <li>张三</li>
+            <li>里斯</li>
+            <li>毛利</li> -->
+          </ul>
+        </div>
+        <div class="userCount">
+          <p>在线人数:<span id="userCount">0</span></p>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chatList">
+          <ul class="chatRecord" id="chatRecord">
+            <li>
+              <section>开始对话吧</section>
+            </li>
+          </ul>
+        </div>
+        <div class="chatEdit">
+          <textarea name="edit" id="edit"></textarea>
+          <button onclick="sendMessage()">发送</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var users = document.getElementById('userCount');
+      var edit = document.getElementById('edit');
+      var chatList = document.getElementById('chatRecord');
+      var direction = 'Toright';
+
+      console.log(users.innerText);
+      const socket = io.connect('http://localhost:8888');
+
+      socket.on('connect',function(){
+        console.log('log success');
+      });
+      socket.on('userChange',function(res){
+        users.innerText = res.userCount;
+      });
+      socket.on('sendMessage',function(res){
+        addMessage(res,'other');
+      });
+
+      function sendMessage(){
+        if(edit.value == ''){
+          alert('不能为空');
+        } else {
+          socket.emit('sendMessage',edit.value.replace(/(^\s*)|(\s*$)/g, ""));
+          addMessage(edit.value,'self');
+          edit.value = '';
+        }
+      }
+      function addMessage(str,category){
+        direction = (category == 'self') ? 'Toright':'Toleft';
+        chatList.innerHTML += "<li class="+direction+"><section>"+str+"</section></li>"
+      }
+
+    </script>
+  </body>
+</html>

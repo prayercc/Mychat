@@ -1,45 +1,56 @@
-// library
-const path = require('path')
-const express = require('express');
-const app = express();
-const server = require('http').Server(app);//基于事件的服务器
-const io = require('socket.io')(server);
+/**
+ * Created by mike on 2017/5/15.
+ */
+
+var http=require("http");
+var express=require("express");//引入express
+var socketIo=require("socket.io");//引入socket.io
+
+var app=new express();
+
+var server=http.createServer(app);
+var io=new socketIo(server);//将socket.io注入express模块
+
+//namespace1  的访问地址
+app.get("/namespace1",function (req,res,next) {
+    res.sendFile(__dirname+"/views/namespace1.html");
+});
+app.get("/namespace2",function (req,res,next) {
+    res.sendFile(__dirname+"/views/namespace2.html");
+});
+server.listen(8080);//express 监听 8080 端口，因为本机80端口已被暂用
+console.log("服务已启动");
+
+var namespace1=io.of("/namespace1");// 使用of("命名空间") 声明一个新的空间，不同空间下的socket是隔离的不能互相通信
+var namespace2=io.of("/namespace2");
 
 
-// View options
-app.use(express.static(path.join(__dirname, 'public')))
+//每个客户端socket连接时都会触发 connection 事件
+namespace1.on("connection",function (clientSocket) {
+    // socket.io 使用 emit(eventname,data) 发送消息，使用on(eventname,callback)监听消息
 
+    //监听客户端发送的 sendMsg 事件
+    clientSocket.on("sendMsg",function (data,fn) {
+        // data 为客户端发送的消息，可以是 字符串，json对象或buffer
 
-// Render and send the main page
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+        // 使用 emit 发送消息，broadcast 表示 除自己以外的所有已连接的socket客户端。
+        // to(房间名)表示给除自己以外的同一房间内的socket用户推送消息
+        clientSocket.broadcast.emit("receiveMsg",data);
+        fn({"code":0,"msg":"消息发生成功","namespace":"命名空间1"});
+    })
 });
 
-// app.listen(80);
-server.listen(8888,function(){
-	console.log('listen 8888');
-});
+//每个客户端socket连接时都会触发 connection 事件
+namespace2.on("connection",function (clientSocket) {
+    // socket.io 使用 emit(eventname,data) 发送消息，使用on(eventname,callback)监听消息
 
-// Handle the socket.io connections
-var userCount = 0;
-io.on('connection', function (socket) {
-  userCount ++;//user add
-  reloadUsers();//send the count to all the users
-	socket.on('disconnect', function(){
-    userCount --;//user reduce
-    reloadUsers();//send the count to all the users
-    console.log('user disconnected');
-  });
-  socket.on('sendMessage',function(res){
-    socket.broadcast.emit('sendMessage', res);
-  })
-});
-// Handle the socket.io disconnect
-io.on('disconnect',function(socket){
-	console.log('disconnect start');
-});
+    //监听客户端发送的 sendMsg 事件
+    clientSocket.on("sendMsg",function (data,fn) {
+        // data 为客户端发送的消息，可以是 字符串，json对象或buffer
 
-//通知所有用户
-function reloadUsers(){
-  io.emit('userChange',{'userCount':userCount});
-}
+        // 使用 emit 发送消息，broadcast 表示 除自己以外的所有已连接的socket客户端。
+        // to(房间名)表示给除自己以外的同一房间内的socket用户推送消息
+        clientSocket.broadcast.emit("receiveMsg",data);
+        fn({"code":0,"msg":"消息发生成功","namespace":"命名空间2"});
+    })
+});
