@@ -1,0 +1,19 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": "join and leave chat room",
+  "main": "app.js",
+  "scripts": {
+    "test": "supervisor app.js"
+  },
+  "author": "prayer",
+  "license": "ISC",
+  "devDependencies": {
+    "supervisor": "^0.12.0"
+  },
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  }
+}

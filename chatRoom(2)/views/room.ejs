@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>demo</title>
+  <style media="screen">
+    .msglog {
+      margin: 10px 0;
+      padding: 5px;
+      width: 430px;
+      height: 150px;
+      font-size:15px;
+      color: blue;
+      border: 3px dotted #ddd;
+      overflow-y:auto;
+    }
+    .msglog p {
+      font-size:12px;
+      color: red;
+      text-align: center;
+    }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+昵称: <input type="text" id="userName" placeholder="请输入昵称">
+<button type="button" onclick="joinRoom()">加入房间</button><br>
+房间: <%=roomID %><br>
+当前房间人数: <br>
+在线用户： <br>
+<div class="msglog" id="msglog"></div>
+<textarea name="name" rows="2" cols="50" id="msg"></textarea>
+<button type="button" onclick="sendMsg()">发送</button><br>
+<button type="button" onclick="leaveRoom()">退出房间</button>
+<script type="text/javascript">
+  var msglog = document.getElementById('msglog');
+
+
+  const socket = io('localhost:7000');
+  socket.on('connect',function(){
+    console.log('连接成功');
+  });
+  //系统消息
+  socket.on('sys',function(sysMsg,users){
+    var tips = document.createElement("p");
+    var tipMsg = document.createTextNode(sysMsg);
+    tips.appendChild(tipMsg);
+
+    msglog.appendChild(tips);
+    msglog.scrollTop = msglog.scrollHeight;//固定到滚动条底部
+  });
+  //有人在发送消息
+  socket.on('msg',function(user,msg){
+    var msgBox = document.createElement('h5');
+    var msgInfo = document.createTextNode(user+":"+msg);
+    msgBox.appendChild(msgInfo);
+
+    msglog.appendChild(msgBox);
+    msglog.scrollTop = msglog.scrollHeight;//固定到滚动条底部
+  });
+  function joinRoom(){
+    var userName = document.getElementById('userName').value;
+    if(userName.length > 0){
+      socket.emit('join',userName);//触发加入房间事件
+    } else {
+      alert('请输入昵称');
+    }
+  }
+  function leaveRoom(){
+    socket.emit('leave');
+    var msg = '你已经退出了房间,重新发言请点击"进入房间"';
+    var tips = document.createElement("p");
+    var tipMsg = document.createTextNode(msg);
+    tips.appendChild(tipMsg);
+
+    msglog.appendChild(tips);
+    msglog.scrollTop = msglog.scrollHeight;//固定到滚动条底部
+  }
+  function sendMsg(){
+    var msgmDom = document.getElementById('msg');
+    var msg = msgmDom.value;
+    if(msg.length > 0){
+      socket.send(msg);//变相触发message事件
+      msgmDom.value = '';
+    } else {
+      alert('发送内容不能为空');
+    }
+  }
+</script>
+</body>
+</html>
