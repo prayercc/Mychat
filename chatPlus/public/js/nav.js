@@ -32,6 +32,7 @@ function displayDOM() {
     messageBox.style.width = '80%';
   }
 }
+// 函数防抖
 function debounce(method, delay) {
   let timer = null;
   return function() {
