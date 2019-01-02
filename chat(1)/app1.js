@@ -1,4 +1,17 @@
-// library
+/**
+ *                                       江城子 . 程序员之歌
+ *                                  十年生死两茫茫，写程序，到天亮。
+ *                                         千行代码，Bug何处苍。
+ *                                  纵使上线又怎样，朝令改，夕断肠。
+ *
+ *                                  领导每天新想法，天天改，日日忙。
+ *                                         相顾无言，惟有泪千行。
+ *                                  每晚灯火阑珊处，夜难寐，加班狂。
+ *
+ * Enjoy coding
+ * Created by prayer on 2018.12.13 16:37:12
+ */
+ 
 const path = require('path')
 const express = require('express');
 const app = express();
@@ -12,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Render and send the main page
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/one.html');
 });
 
 // app.listen(80);

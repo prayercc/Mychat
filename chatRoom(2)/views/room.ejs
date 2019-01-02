@@ -7,17 +7,25 @@
     .msglog {
       margin: 10px 0;
       padding: 5px;
-      width: 430px;
-      height: 150px;
+      width: 80%;
+      height: 600px;
       font-size:15px;
       color: blue;
       border: 3px dotted #ddd;
       overflow-y:auto;
     }
-    .msglog p {
+    .msglog > p {
       font-size:12px;
       color: red;
       text-align: center;
+    }
+    .msglog > div {
+      height: 100px;
+    }
+    .msglog > div img {
+      height: 100%;
+      margin: 0 5px;
+      vertical-align: bottom;
     }
   </style>
   <script src="/socket.io/socket.io.js"></script>
@@ -25,23 +33,29 @@
 <body>
 昵称: <input type="text" id="userName" placeholder="请输入昵称">
 <button type="button" onclick="joinRoom()">加入房间</button><br>
-房间: <%=roomID %><br>
-当前房间人数: <br>
-在线用户： <br>
+<p>房间: <span><%=roomID %></span></p>
+<p>当前房间人数: <span id="userCount"><%=users.length%></span></p>
+<p>在线用户: <span id="userList"><%=users%></span></p>
 <div class="msglog" id="msglog"></div>
+选择图片：<input type="file" id="msgImg"><button type="button" onclick="sendImg()">发送图片</button><br>
+
 <textarea name="name" rows="2" cols="50" id="msg"></textarea>
 <button type="button" onclick="sendMsg()">发送</button><br>
 <button type="button" onclick="leaveRoom()">退出房间</button>
 <script type="text/javascript">
   var msglog = document.getElementById('msglog');
-
-
+  var userCount = document.getElementById('userCount');
+  var userList = document.getElementById('userList');
   const socket = io('localhost:7000');
   socket.on('connect',function(){
     console.log('连接成功');
   });
   //系统消息
   socket.on('sys',function(sysMsg,users){
+    console.log(sysMsg,users);
+    userCount.textContent = users.length;
+    userList.textContent = users;
+
     var tips = document.createElement("p");
     var tipMsg = document.createTextNode(sysMsg);
     tips.appendChild(tipMsg);
@@ -56,6 +70,12 @@
     msgBox.appendChild(msgInfo);
 
     msglog.appendChild(msgBox);
+    msglog.scrollTop = msglog.scrollHeight;//固定到滚动条底部
+  });
+  socket.on('receiveImg',function(user,data){
+    var ImgDIV = document.createElement('div');
+        ImgDIV.innerHTML = `${user}: <img src="${data.img}" />`;
+    msglog.appendChild(ImgDIV);
     msglog.scrollTop = msglog.scrollHeight;//固定到滚动条底部
   });
   function joinRoom(){
@@ -85,6 +105,20 @@
     } else {
       alert('发送内容不能为空');
     }
+  }
+  // 使用FileReader来传输图片
+  function sendImg(){
+    var Imginput = document.getElementById('msgImg');
+    var file = Imginput.files[0];//得到图片
+
+    var render = new FileReader();
+    render.readAsDataURL(file);
+
+    render.onload = function(){
+      var imgdata = {img: this.result};
+      socket.emit('sendImg',imgdata);
+    };
+
   }
 </script>
 </body>

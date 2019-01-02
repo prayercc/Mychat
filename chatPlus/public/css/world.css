@@ -1,0 +1,228 @@
+
+/*
+** 左边整个模块
+*/
+.messageBox {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  right: 20%;
+  bottom: 0;
+  width: 80%;
+  -webkit-transition: all 1s ease-in-out; /* Safari 和 Chrome */
+     -moz-transition: all 1s ease-in-out; /* Firefox 4 */
+       -o-transition: all 1s ease-in-out; /* Opera */
+          transition: all 1s ease-in-out;
+}
+/*
+** 左边上面聊天记录显示以及设置部分
+*/
+.messageDetail {
+  box-sizing: border-box;
+  height: 80%;
+  overflow: hidden;
+}
+/*
+** 左边上面设置部分
+*/
+.messageTop {
+  box-sizing: border-box;
+  padding: 0 50px;
+  height: 30px;
+  border-bottom: 1px solid #dedede;
+}
+
+/*
+** 左边上面聊天记录显示
+*/
+.messageBoard {
+  box-sizing: border-box;
+  padding: 25px 15px;
+  margin-bottom: 40px;
+  height: 94%;
+  overflow: auto;
+}
+.messageBoard::-webkit-scrollbar {display:none}
+.message {
+  width: 100%;
+  margin-bottom: 15;
+}
+.message > img {
+  width:50px;
+  height: 50px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+}
+.self {
+  direction: rtl;
+}
+.sysMessage {
+  color: #ccc;
+  text-align: center;
+}
+.userMsg {
+  display:inline-block;
+  max-width: 70%;
+  margin: 0 10px;
+  vertical-align: top;
+}
+.userMsg article {
+  position: relative;
+  padding: 10px;
+  background-color: rgba(40, 57, 101, .1);
+  border-radius: 4px;
+  direction: ltr;
+}
+.userMsg article img {
+  width: 100px;
+  border-radius: 4px;
+  vertical-align: bottom;
+}
+/*
+** 聊天信息编辑模块
+*/
+.messageEdit {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  padding: 0 10px ;
+  height: 150px;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #dedede;
+}
+/*
+** 聊天信息编辑模块 - 》 附加信息
+*/
+.msgType {
+  height: 35px;
+  background-color: #fff;
+}
+.msgType ul {
+  display: flex;
+}
+.msgType ul li {
+  height: 35px;
+  width: 35px;
+  margin-right: 12.5px;
+}
+.inputFile {
+  display: none;
+}
+.msgTypeIcon {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background: url('/images/font.png') center bottom no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+.emotion {
+  background: url('/images/emotion.png') center bottom no-repeat;
+  background-size: cover;
+}
+.picture {
+  background: url('/images/picture.png') center bottom no-repeat;
+  background-size: cover;
+}
+/*
+** 聊天信息编辑模块 - 》 内容输入
+*/
+.msgInfo {
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  border: 1px solid transparent;
+  overflow: auto;
+}
+.msgInfo:focus {
+  outline: none;
+}
+.msgInfo img {
+  width: 50px;
+  vertical-align: bottom;
+}
+/*
+** 聊天信息编辑模块 - 》 发送按钮
+*/
+.msgButton {
+  width: 80px;
+  height: 30px;
+  color:#fff;
+  font-size: 15px;
+  font-weight: bold;
+  float: right;
+  border-radius: 4px;
+  background-color: #409EFF;
+}
+/*
+** 右边整个侧边栏
+*/
+.userBox {
+  position: absolute;
+  top: 50px;
+  right:0;
+  bottom: 0;
+  width: 20%;
+  border-left: 1px solid #dedede;
+}
+/*
+** 右边整个侧边栏-》世界公告
+*/
+.noticeBoard {
+  box-sizing: border-box;
+  height: 200px;
+  padding: 10px;
+}
+.tip{
+  margin-bottom: 10px;
+  padding-left: 5px;
+  font-size: 17.5px;
+  color: #444;
+  border-left: 4px solid #409EFF;
+}
+.noticeBoard p {
+  color:#aaa;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/*
+** 右边整个侧边栏-》用户列表
+*/
+.userList {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+.userList li {
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.userList li:hover {
+  cursor: pointer;
+}
+.userListIcon {
+  display: inline-block;
+  width:35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.userListIcon img {
+  width: 100%;
+}
+.gray {
+  -webkit-filter: grayscale(100%);
+     -moz-filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+       -o-filter: grayscale(100%);
+          filter: grayscale(100%);
+          filter: gray;
+}
+.userListIcon + span {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+/* room */

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel='stylesheet' href='/css/reset.css' />
+  </head>
+  <body>
+    <nav class="mynav">
+      <div class="logo">
+        <img src="/images/logo.png" alt="">
+      </div>
+      <ul>
+        <li><a href="/index">世界</a></li>
+        <li><a href="/hall">大厅</a></li>
+        <li><a href="#">个人</a></li>
+      </ul>
+      <ul id="ulRight">
+        <li>
+          <i class="rIcon color"></i>
+        </li>
+        <li>
+          <i class="rIcon lock"></i>
+        </li>
+        <li onclick="toggleFullScreen(event)">
+          <i class="rIcon fullscreen" id="screenOP"></i>
+        </li>
+        <li>
+          <i class="rIcon user" id="userIcon" style="background: url(/images/userInit/<%=userinfo.icon%>) center bottom no-repeat;background-size: cover;"></i>
+        </li>
+        <li style="display:none" id="userName">
+          <%=userinfo.username %>
+        </li>
+        <li style="display:none" id="userId">
+          <%=userinfo.userId %>
+        </li>
+        <li>
+          <i class="rIcon other"></i>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

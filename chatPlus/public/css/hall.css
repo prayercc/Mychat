@@ -1,0 +1,146 @@
+
+.hallBox {
+  padding: 50px 0;
+  width: 100%;
+}
+
+.roomCategory {
+  margin: 0 0 25px 100px;
+  width: 90%;
+}
+
+.roomCategoryName {
+  width: 100%;
+  height: 50px;
+}
+
+.roomStyle {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: url('/images/hall/friends.png') center bottom no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.roomStyle+span {
+  display: inline-block;
+  margin-left: 15px;
+  font-size: 22.5px;
+  line-height: 50px;
+  color: #000;
+  vertical-align: top;
+}
+
+.roomCategorList {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 60px;
+  width: 100%;
+  font-size: 15px;
+}
+
+.roomCategorList figure {
+  box-sizing:border-box;
+  position: relative;
+  display: flex;
+  margin-right: 20px;
+  width: 350px;
+  height: 150px;
+  background: url('/images/hall/room.jpg') no-repeat;
+  border: #ddd 1px solid;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index:1;
+  cursor: pointer;
+}
+.roomCategorList figure:after{
+  content: "";
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+  background: inherit;
+  filter: blur(15px);
+  z-index: 2;
+}
+
+
+.roomCategorList figure ul {
+  height: 100%;
+  width: 225px;
+  z-index: 3;
+}
+
+.roomCategorList figure ul a {
+  position: relative;
+  display: block;
+}
+
+.roomCategorList figure ul span {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: block;
+  width: 100%;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4) url('/images/hall/door.png') no-repeat center .5rem;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.roomCategorList figure ul:hover span {
+  opacity: 1;
+}
+
+.roomCategorList figure img {
+  display: inline-block;
+  width: 225px;
+  height: 100%;
+}
+.roomCategorList figure figcaption {
+  position:relative;
+  width: 125px;
+  z-index: 3;
+}
+.roomCategorList figure figcaption p {
+  padding: 5px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+.roomCategorList figcaption i {
+  display: inline-block;
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background-size: cover;
+}
+.roomCategorList figcaption i img {
+  width: 100%;
+}
+
+.roomCategorList figcaption span {
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  left: 55px;
+  height:30px;
+  width: 60px;
+  color: #fff;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

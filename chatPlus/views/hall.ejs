@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>chatSystem</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/hall.css">
+</head>
+
+<body>
+  <%- include ./modules/header.ejs %>
+  <div class="hallBox">
+    <div class="roomCategory">
+      <div class="roomCategoryName">
+        <i class="roomStyle"></i>
+        <span>房间列表</span>
+      </div>
+      <div class="roomCategorList">
+        <% for(let i=0 ;i < room.length;i++) {%>
+          <figure>
+            <ul>
+              <a href="/rooms/<%=room[i]._id %>">
+                <img src="/images/hall/<%=room[i].roomIcon %>" alt="">
+                <span><%=room[i].briefIntroduction %></span>
+              </a>
+            </ul>
+            <figcaption>
+              <p>
+                <%=room[i].name %>
+              </p>
+              <i class="rIcon">
+                <img src="/images/userInit/<%=room[i].ownicon %>">
+              </i>
+              <span><%=room[i].ownName %></span>
+            </figcaption>
+          </figure>
+          <% } %>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/rem.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+</body>
+
+</html>

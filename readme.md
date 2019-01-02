@@ -1,4 +1,5 @@
-# nodejs + express + ejs +socket.io 一点点实现聊天系统
+> nodejs + express + ejs +socket.io 一点点实现聊天系统
+----
 
 ## 1.基础使用
 * cd chat(1)

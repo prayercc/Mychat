@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>chatSystem</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/world.css">
+</head>
+
+<body>
+  <%- include ./modules/header.ejs %>
+  <div class="messageBox" id="messageBox">
+    <div class="messageDetail">
+      <div class="messageTop"></div>
+      <div class="messageBoard" id="messageBoard"></div>
+    </div>
+    <div class="messageEdit">
+      <div class="msgType">
+        <ul>
+          <li><i class="msgTypeIcon"></i></li>
+          <li><i class="msgTypeIcon emotion"></i></li>
+          <li>
+            <input type="file" name="file" id="file" accept="image/*" class="inputFile" onchange="getFileToPicture(event)" />
+            <label for="file" class='msgTypeIcon picture'></label>
+          </li>
+        </ul>
+      </div>
+      <div contentEditable='true' name="name" class="msgInfo" id="msgInfo"></div>
+      <button class="msgButton" onclick="sendMessage()">发送</button>
+    </div>
+  </div>
+  <div class="userBox" id="userBox">
+    <div class="noticeBoard">
+      <article>
+        <header class="tip">世界公告</header>
+        <p>这是世界公告内容这是世界公告内容这是世界公告内容这是世界公告内容，啦啦啦啦啦啦啦啦lalalala </p>
+      </article>
+    </div>
+    <div class="userList">
+      <p class="tip">世界成员</p>
+      <ul id="userList"></ul>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/chat_client.js" defer></script>
+</body>
+
+</html>

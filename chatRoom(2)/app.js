@@ -40,8 +40,11 @@ app.use(express.static(path.join(__dirname,'public')));
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 // config public
-var roomInfo = [];
+var roomInfo = new Array();//保存房间信息
+var hashName = new Array();//保存 用户名=》socket.io 映射表
+
 socketIO.on('connection',function(socket){
+
   var url = socket.request.headers.referer;
   var splited = url.split('/');
   var roomID = splited[splited.length - 1];//获取roomID
@@ -53,10 +56,11 @@ socketIO.on('connection',function(socket){
       roomInfo[roomID] = [];
     }
     roomInfo[roomID].push(user);
+    hashName[user] = socket.id;
     socket.join(roomID);//加入房间
     // socket.broadcast.to(roomID).emit('sys', user + '加入了房间', roomInfo[roomID]);//通知房间其他用户
-    socketIO.to(roomID).emit('sys', user + '加入了房间');//通知房间所有用户
-    console.log(user + '加入了' + roomID);
+    socketIO.to(roomID).emit('sys', user + '加入了房间',roomInfo[roomID]);//通知房间所有用户，包括自己
+    console.log(hashName);
   });
   socket.on('leave',function(){
     socket.emit('disconnect');
@@ -68,18 +72,32 @@ socketIO.on('connection',function(socket){
     }
     socketIO.to(roomID).emit('msg',user,msg);
   });
+  socket.on('sayTo',function(name,msg){
+    var toId = null;
+    if(toId = hashName[name]){
+      var toSocket = socketIO.sockets.sockets[toId];
+      toSocket.emit('secret',msg);
+    }
+  });
+  socket.on('sendImg',function(data){
+    console.log(user,'图片：',data);
+    socketIO.to(roomID).emit('receiveImg',user,data);
+  });
   socket.on('disconnect',function(){
     var index = roomInfo[roomID].indexOf(user);
     if(index !== -1){
       roomInfo[roomID].splice(index,1);
     }
     socket.leave(roomID);
-    socketIO.to(roomID).emit('sys', user + '退出了房间');//通知房间所有用户
+    socketIO.to(roomID).emit('sys', user + '退出了房间',roomInfo[roomID]);//通知房间所有用户
     console.log(user + '退出了' + roomID);
   });
 });
 router.get('/room/:roomID',function(req,res){
   let roomID = req.params.roomID;
+  if(!roomInfo[roomID]){
+    roomInfo[roomID] = [];
+  }
   res.render('room',{
     roomID: roomID,
     users: roomInfo[roomID]
