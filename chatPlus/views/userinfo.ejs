@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>chatSystem</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/user.css">
+</head>
+
+<body>
+  <%- include ./modules/header.ejs %>
+  <div class="userBox">
+    <div class="userLeft">
+      <div class="userIcon">
+        <img src="<%=userinfo.icon%>" alt="">
+      </div>
+      <p>用户账号:<span><%=userinfo.userId%></span></p>
+    </div>
+    <div class="userRight">
+        <form action="/users/resetinfo" method="post" enctype="multipart/form-data">
+          <div class="userDisplay">
+            <label for="username">昵称:</label>
+            <div class="inputItem">
+              <input type="text" name="username" value="<%=userinfo.username%>">
+              <input type="hidden" name = "id" value="<%=userinfo._id%>">
+            </div>
+          </div>
+          <div class="userDisplay half">
+            <label for="icon">头像:</label>
+            <div class="inputItem">
+              <input type="file" name="icon">
+              <input type="hidden" name="oldIcon" value="<%= userinfo.icon %>">
+            </div>
+          </div>
+          <div class="userDisplay half">
+            <label for="userSex">性别:</label>
+            <div class="inputItem">
+              <select name="userSex" >
+                <% if(userinfo.gender=='man') {%>
+                  <option value ="man" selected="selected">男</option>
+                  <option value ="woman">女</option>
+                <%} else {%>
+                  <option value ="man" >男</option>
+                  <option value ="woman" selected="selected">女</option>
+                <%}%>
+              </select>
+            </div>
+          </div>
+          <div class="userDisplay half">
+            <label for="userBirthday">出生日期:</label>
+            <div class="inputItem"><input type="date" name="userBirthday" value="2013-09-05"></div>
+          </div>
+          <div class="userDisplay half">
+            <label for="maritalStatus">婚姻状况:</label>
+            <div class="inputItem">
+              <select name="maritalStatus">
+                <%if(userinfo.maritalStatus == 'unmarried') {%>
+                  <option value ="unmarried" selected="selected">未婚</option>
+                  <option value ="married">已婚</option>
+                  <option value="single">单身</option>
+                <% } else if(userinfo.maritalStatus =='married') {%>
+                  <option value ="unmarried">未婚</option>
+                  <option value ="married" selected="selected">已婚</option>
+                  <option value="single">单身</option>
+                <% } else {%>
+                  <option value ="unmarried">未婚</option>
+                  <option value ="married">已婚</option>
+                  <option value="single" selected="selected">单身</option>
+                <% }%>
+              </select>
+            </div>
+          </div>
+          <div class="userDisplay half">
+            <label for="department">部门:</label>
+            <div class="inputItem"><input type="text" name="department" value="<%=userinfo.partment%>"></div>
+          </div>
+          <div class="userDisplay half">
+            <label for="position">所在职位:</label>
+            <div class="inputItem"><input type="text" name="position" value="<%=userinfo.position%>"></div>
+          </div>
+          <div class="userDisplay half">
+            <label for="telphone">手机号码:</label>
+            <div class="inputItem"><input type="tel" name="telphone" value="<%=userinfo.telNumber%>"></div>
+          </div>
+          <div class="userDisplay half">
+            <label for="telphone">电子邮箱:</label>
+            <div class="inputItem"><input type="email" name="telphone" value="<%=userinfo.email%>"></div>
+          </div>
+          <div class="userDisplay">
+            <label for="introduce">自我介绍:</label>
+            <div class="inputItem">
+              <textarea name="introduce"><%=userinfo.introduce%></textarea>
+            </div>
+          </div>
+          <div class="buttons">
+            <button type="submit">保存</button>
+            <button type="button">返回</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</body>
+
+</html>

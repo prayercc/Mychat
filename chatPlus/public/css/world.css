@@ -28,10 +28,29 @@
 .messageTop {
   box-sizing: border-box;
   padding: 0 50px;
-  height: 30px;
+  height: 50px;
+  font-size: 20px;
   border-bottom: 1px solid #dedede;
 }
-
+.messageTop  small {
+  font-size: 12px;
+  color: #d3d3e0;
+}
+.roomIcon {
+  display: inline-block;
+  height:40px;
+  /* border: 1px solid #ddd; */
+  box-shadow: -1px 1px 3px  #eee;
+}
+.roomIcon img {
+  height: 100%;
+}
+.roomName {
+  display: inline-block;
+  margin-left: 5px;
+  line-height: 45px;
+  vertical-align: top;
+}
 /*
 ** 左边上面聊天记录显示
 */
@@ -68,10 +87,12 @@
 }
 .userMsg article {
   position: relative;
+  display: block;
   padding: 10px;
   background-color: rgba(40, 57, 101, .1);
   border-radius: 4px;
   direction: ltr;
+  word-wrap: break-word;
 }
 .userMsg article img {
   width: 100px;

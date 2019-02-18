@@ -1,0 +1,158 @@
+.friendBox {
+  position: absolute;
+  top: 50px;
+  left:0;
+  right:0;
+  bottom: 0;
+  display: flex;
+}
+/* 左边好友列表 */
+.friendGroupList {
+  width: 20%;
+  min-width: 150px;
+  background-color: #f6f8fa;
+}
+.friendsTitle {
+  height: 40px;
+  margin-bottom: 5px;
+  color:#444;
+  font-size: 19px;
+  line-height: 40px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.friendGroup {
+  padding-left: 10px;
+  cursor: default;
+}
+.friendGroup  summary{
+  font-size: 16px;
+  height: 30px;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.friendGroup  summary:hover,.friendGroup li:hover {
+  background-color: #eee;
+}
+/* 好友列表 */
+.friendGroup li {
+  position: relative;
+  display: flex;
+  height: 2.8rem;
+  align-items: center;
+}
+.friendGroup li:before {
+  position: absolute;
+  content: "";
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+}
+  /* 头像 */
+  .friendIcon {
+    width: 14%;
+  }
+  .friendIcon img {
+    border-radius: 50%;
+  }
+  /* 昵称+签名 */
+  .friendInfo {
+    width: 70%;
+    margin-left:3px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .friendInfo small {
+    color: #999;
+  }
+  /* .friendInfo p,.friendInfo small {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } */
+  /* .friendSex {
+    width: 16%;
+  } */
+  .man {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: url('/images/friends/man.png');
+    background-size: cover;
+    vertical-align: middle;
+  }
+  .woman {
+    background: url('/images/friends/woman.png');
+    background-size: cover;
+  }
+/* 右边指定好友详细信息 */
+.friendDetail {
+  position: relative;
+  width: 80%;
+  background-color: #ddd;
+  background: url('/images/friends/bg.png') center center no-repeat;
+}
+.detailDisplay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 65%;
+  min-height: 400px;
+  min-width: 200px;
+  background-color: #fff;
+  transform: translate(-50%,-50%);
+}
+.displayTop {
+  position: relative;
+  height: 15%;
+  width: 100%;
+  min-height: 100px;
+  background: url('/images/friends/bgtop.jpg') center center no-repeat;
+  background-size:cover;
+}
+.displayTop img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15%;
+  min-width: 80px;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+}
+.displayContent {
+  background-color: #f8f8f8;
+}
+.displayContent h4,.displayContent h5 {
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.displayContent h4 {
+  font-size:20px;
+}
+.displayContent h5 {
+  color:#aaa;
+  margin-bottom: 10px;
+}
+.displayContent p {
+  display: block;
+  width: 50%;
+  margin-left: 40%;
+  color:#aaa;
+  line-height: 35px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.displayContent p span {
+  margin-left: 5px;
+  color:#444;
+}

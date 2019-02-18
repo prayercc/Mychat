@@ -10,6 +10,7 @@
 }
 
 .roomCategoryName {
+  position: relative;
   width: 100%;
   height: 50px;
 }
@@ -18,9 +19,19 @@
   display: inline-block;
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+}
+.room {
   background: url('/images/hall/friends.png') center bottom no-repeat;
   background-size: cover;
-  border-radius: 50%;
+}
+.add {
+  position: absolute;
+  right:0;
+  top:0;
+  background: url('/images/hall/add.png') center bottom no-repeat;
+  background-size: cover;
+  cursor: pointer;
 }
 
 .roomStyle+span {
@@ -44,7 +55,7 @@
   box-sizing:border-box;
   position: relative;
   display: flex;
-  margin-right: 20px;
+  margin: 0 20px 20px 0;
   width: 350px;
   height: 150px;
   background: url('/images/hall/room.jpg') no-repeat;
@@ -143,4 +154,55 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+/* 遮罩 */
+.shadow {
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-color: rgba(0,0,0,.2);
+  z-index: 999;
+  display: none;
+}
+.addRoom {
+  position: absolute;
+  top: 40%;
+  left:50%;
+  padding: 20px ;
+  width: 400px;
+  height: 220px;
+  background-color: #fff;
+  transform: translate(-50%,-50%);
+  border-radius: 5px;
+}
+.inputItem {
+  margin: 10px auto;
+}
+.inputItem input[type="file"]{
+  width: 60%;
+  border: 1px solid #666;
+}
+.inputItem input[type="text"]{
+  width: 60%;
+  height: 30px;
+  border: 1px solid #666;
+}
+.inputItem input[type="submit"],.inputItem input[type="button"]{
+  padding: 5px 10px;
+  background-color:#ddd;
+}
+.inputItem input[type="submit"] {
+ background: #409EFF;
+}
+.inputItem label{
+  display: inline-block;
+  width: 60px;
+  text-align: left;
+}
+.inputItem textarea {
+  width: 61%;
+  height: 80px;
+  vertical-align: top;
 }

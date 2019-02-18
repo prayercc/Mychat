@@ -1,7 +1,7 @@
 const socket = io.connect('http://localhost:3000/room');
 
 // 登陆的用户基本信息
-var userIcon= document.getElementById('userIcon').style.backgroundImage.match(/(\d.png)/g)[0];
+var userIcon= document.getElementById('userIcon').src;
 var userName = document.getElementById('userName').textContent.trim();
 var userId = document.getElementById('userId').textContent.trim();
 // 常用DOM集合
@@ -10,6 +10,7 @@ var userList = document.getElementById('userList');//用户列表
 let msgInfo = document.getElementById('msgInfo');//输入框
 
 socket.on('connect', function() {
+  console.log(userIcon);
   //加入房间
   socket.emit('join',{
     icon: userIcon,
@@ -45,7 +46,8 @@ function appendUserMessage(msg,userMessage,flag){
   if(flag){
     div.classList.add("self");
   }
-  img.src = "/images/userInit/"+userMessage.icon;
+  console.log("userMessage.icon:",userMessage.icon);
+  img.src = userMessage.icon;
   div2.classList.add("userMsg");
   article.innerHTML = msg;
 
@@ -112,7 +114,7 @@ function updateUserList(users){
     var span = document.createElement('span');
     var node = document.createTextNode(users[i].userName + "("+users[i].userId+")");
         div.classList.add("userListIcon");
-        img.src = "/images/userInit/"+users[i].icon;
+        img.src = users[i].icon;
         div.appendChild(img);
         span.appendChild(node);
         li.appendChild(div);

@@ -28,6 +28,7 @@ function __connectDb(callback){
 **          colStr                  返回列条件
 **          callback                回调函数
 */
+// 全部信息查询
 exports.find = function(collectionName,whereStr,callback){
   __connectDb(function(client,db){
     db.collection(collectionName).find(whereStr).toArray(function(err,doc){
@@ -36,7 +37,8 @@ exports.find = function(collectionName,whereStr,callback){
     });
   });
 }
-exports.findLimt = function(collectionName,whereStr,colStr,callback){
+// 指定字段查询
+exports.findLimit = function(collectionName,whereStr,colStr,callback){
   __connectDb(function(client,db){
     db.collection(collectionName).find(whereStr,colStr).toArray(function(err,doc){
       client.close();
@@ -44,12 +46,29 @@ exports.findLimt = function(collectionName,whereStr,colStr,callback){
     });
   });
 }
+// 查询一条
 exports.findOne = function(collectionName,whereStr,callback){
   __connectDb(function(client,db){
     db.collection(collectionName).find(whereStr).limit(1).toArray(function(err,doc){
       client.close();
       callback(err,doc);
     });
+  });
+}
+// 多表联合查询
+// leftCollectionName 左表
+// lookup 连接条件
+exports.findUnite = function(leftCollectionName,match,lookup,project,unwind,callback){
+  __connectDb(function(client,db){
+    db.collection(leftCollectionName).aggregate([
+      { $match: match},
+      { $lookup: lookup},
+      { $project: project },
+      { $unwind: unwind }
+    ]).toArray(function(err,doc){
+      client.close();
+      callback(err,doc);
+    })
   });
 }
 /* 数据库增加

@@ -12,7 +12,12 @@
   <%- include ./modules/header.ejs %>
   <div class="messageBox" id="messageBox">
     <div class="messageDetail">
-      <div class="messageTop"></div>
+      <div class="messageTop">
+        <div class="roomIcon">
+          <img src="/images/hall/<%=roomInfo.roomIcon%>" alt="">
+        </div>
+        <div class="roomName"><%=roomInfo.name%> <small><%=roomInfo.briefIntroduction%>&nbsp;&nbsp;--by&nbsp;<%=roomInfo.ownName%></small> </div>
+      </div>
       <div class="messageBoard" id="messageBoard"></div>
     </div>
     <div class="messageEdit">
@@ -44,7 +49,6 @@
   </div>
   <script type="text/javascript" src="/socket.io/socket.io.js" defer></script>
   <script type="text/javascript" src="/js/room_client.js" defer></script>
-  <script type="text/javascript" src="/js/nav.js" defer></script>
 </body>
 
 </html>

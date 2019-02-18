@@ -16,23 +16,30 @@ socketio.getSocketio = function(server) {
   //世界聊天
   world.on('connection', function(socket) {
     var userMessage = {};
-    console.log('socket.id',socket.id,':connection');
+    // console.log('socket.id',socket.id,':connection');
     socket.emit("system", "Welcome ! Now chat with others");
     //获取在线用户
     getUserUp(socket);
     //用户上线，添加映射
     socket.on('signUser', function(userinfo) {
       userMessage = userinfo;
-      console.log('signUser',userMessage);
+      console.log(userMessage.userName+' ('+userMessage.userId+') has join');
       // clients.set(userMessage,socket.id);
       // 通知其他人有人上线
-      socket.broadcast.emit('userIn',"【" + userinfo.userName + "】-- a newer ! Let's welcome him ~");
+      socket.broadcast.emit('userIn',"【" + userMessage.userName + "】-- a newer ! Let's welcome him ~");
     });
     //有人在世界发言
     socket.on('message',function(msg){
+      console.log(userMessage.userName+' ('+userMessage.userId+') :',msg);
       //可以对发言信息进行存储
       socket.broadcast.emit('userSay', msg ,userMessage,false); //通知别人
       socket.emit('userSay', msg, userMessage,true); //当前用户添加
+    });
+    //用户离开，注销该账号
+    socket.on('disconnect',function(){
+      if(userMessage.length > 0){
+        console.log(userMessage.userName+' ('+userMessage.userId+') has leave');
+      }
     });
   });
   //房间聊天
@@ -89,8 +96,9 @@ socketio.getSocketio = function(server) {
 **   辅助功能
 */
 //获取所有用户(在线/不在线)
+//2019/1/2 限制查询字段   prayer
 function getUserUp(socketIn){
-  DB.findLimt('users',{},{"password":0},function(err,doc){
+  DB.findLimit('users',{},{'userId':1,"username":1,"icon":1,"status":1},function(err,doc){
     if(err){
       console.log('up user find error',err);
       return false;

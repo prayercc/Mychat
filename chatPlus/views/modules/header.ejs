@@ -7,26 +7,26 @@
   </head>
   <body>
     <nav class="mynav">
-      <div class="logo">
-        <img src="/images/logo.png" alt="">
-      </div>
       <ul>
         <li><a href="/index">世界</a></li>
         <li><a href="/hall">大厅</a></li>
-        <li><a href="#">个人</a></li>
+        <li><a href="/message">消息</a></li>
+        <li><a href="/friends">联系人</a></li>
       </ul>
       <ul id="ulRight">
         <li>
           <i class="rIcon color"></i>
         </li>
-        <li>
+        <li onclick="lockScreen()">
           <i class="rIcon lock"></i>
         </li>
         <li onclick="toggleFullScreen(event)">
           <i class="rIcon fullscreen" id="screenOP"></i>
         </li>
         <li>
-          <i class="rIcon user" id="userIcon" style="background: url(/images/userInit/<%=userinfo.icon%>) center bottom no-repeat;background-size: cover;"></i>
+          <a href="/users/userinfo/<%=userinfo._id %>">
+            <img src="<%=userinfo.icon %>"  id="userIcon" class="rIcon user">
+          </a>
         </li>
         <li style="display:none" id="userName">
           <%=userinfo.username %>
@@ -39,5 +39,14 @@
         </li>
       </ul>
     </nav>
+    <div class="mask" id="mask">
+      <div class="masklock">
+        <input type="password" value="" name="lockPassword">
+        <div class="lockImg" onclick="checkUnlock()">
+          <img src="/images/unlock.png" alt="">
+        </div>
+      </div>
+    </div>
+    <script src="/js/nav.js"></script>
   </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>chatSystem</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/friends.css">
+</head>
+
+<body>
+  <%- include ./modules/header.ejs %>
+  <div class="friendBox">
+    <div class="friendGroupList" onclick="showFriendDetail(event)">
+      <div class="friendsTitle">好友列表</div>
+      <details class="friendGroup">
+        <summary>默认分组</summary>
+        <ul>
+          <% for(let i = 0;i < friendsList.length;i++){ %>
+            <li title="<%=friendsList[i].friends.userId%>">
+              <div class="friendIcon">
+                <img src="<%=friendsList[i].friends.icon%>" width="100%" alt="">
+              </div>
+              <div class="friendInfo">
+                <p><%=friendsList[i].friends.username%></p>
+                <small><%=friendsList[i].friends.introduce%></small>
+              </div>
+              <div class="friendSex">
+                <% if(friendsList[i].friends.gender == 'man') {%>
+                  <i class="man"></i>
+                <% } else {%>
+                  <i class="man woman"></i>
+                <% } %>
+              </div>
+            </li>
+          <% } %>
+        </ul>
+      </details>
+      <details class="friendGroup">
+        <summary>公司人员</summary>
+        <ul>
+          <li>Javascript</li>
+          <li>jQuery</li>
+          <li>Frameworks javascript</li>
+        </ul>
+      </details>
+      <details class="friendGroup">
+        <summary>前端部门</summary>
+        <ul>
+          <li>Tablets</li>
+          <li>Dispositivos mobiles</li>
+          <li>Medios de escritorio</li>
+        </ul>
+      </details>
+      <details class="friendGroup">
+        <summary>rule项目负责人员33333333333</summary>
+        <ul>
+          <li>Google</li>
+          <li>Bing</li>
+          <li>Yahoo</li>
+          <li>Otros buscadores</li>
+        </ul>
+      </details>
+    </div>
+    <div class="friendDetail" id="friendDetail">
+      <!-- <div class="detailDisplay">
+        <div class="displayTop">
+          <img src="/images/sysIcon/5.png" alt="">
+        </div>
+        <div class="displayContent">
+          <h4>大大鸟</h4>
+          <h5>阮攸之西利游览，死工资席位感言</h5>
+          <p>账号:<span>100001</span></p>
+          <p>昵称:<span>大大鸟</span></p>
+          <p>手机:<span>16663827346</span></p>
+          <p>邮箱:<span>adfdsafdsf@jdshf.com</span></p>
+          <p>职位:<span>开发部 开发部经理</span></p>
+          <p>个人:<span>21 男 已婚</span></p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <script src="/js/friends_client.js"></script>
+  </body>
+</html>

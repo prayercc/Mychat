@@ -4,6 +4,7 @@
 <head>
   <title>chatSystem</title>
   <meta charset="utf-8">
+  <meta name="referrer" content="never">
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/css/hall.css">
 </head>
@@ -13,8 +14,9 @@
   <div class="hallBox">
     <div class="roomCategory">
       <div class="roomCategoryName">
-        <i class="roomStyle"></i>
+        <i class="roomStyle room"></i>
         <span>房间列表</span>
+        <i class="roomStyle add" onclick="oppCreateRoom('block')"></i>
       </div>
       <div class="roomCategorList">
         <% for(let i=0 ;i < room.length;i++) {%>
@@ -30,7 +32,7 @@
                 <%=room[i].name %>
               </p>
               <i class="rIcon">
-                <img src="/images/userInit/<%=room[i].ownicon %>">
+                <img src="<%=room[i].ownicon %>">
               </i>
               <span><%=room[i].ownName %></span>
             </figcaption>
@@ -39,8 +41,36 @@
       </div>
     </div>
   </div>
+  <div class="shadow" id="shadow">
+    <div class='addRoom'>
+      <form action="/addRoom" method="post" enctype="multipart/form-data">
+        <div class="inputItem">
+          <label for="name">房间名:</label>
+          <input type="text" name="name">
+        </div>
+        <div class="inputItem">
+          <label for="roomIcon">房间图标:</label>
+          <input type="file" name="roomIcon" accept="image/*">
+        </div>
+        <div class="inputItem">
+          <label for="briefIntroduction">房间简介:</label>
+          <textarea name="briefIntroduction"></textarea>
+        </div>
+        <div class="inputItem">
+          <label for=""></label>
+          <input type="submit" value="创建房间">
+          <input type="button" value="取消" onclick="oppCreateRoom('none')">
+        </div>
+      </form>
+    </div>
+  </div>
   <script type="text/javascript" src="/js/rem.js" defer></script>
-  <script src="/js/nav.js" defer></script>
+  <script>
+    let shadow = document.getElementById('shadow');
+    function oppCreateRoom(status){
+      shadow.style.display = status;
+    }
+  </script>
 </body>
 
 </html>

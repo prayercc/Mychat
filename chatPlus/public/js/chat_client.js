@@ -4,13 +4,15 @@ const socket = io.connect('http://localhost:3000/world');
 ** Common nodes
 */
 // 登陆的用户基本信息
-var userIcon= document.getElementById('userIcon').style.backgroundImage.match(/(\d.png)/g)[0];
+var userIcon= document.getElementById('userIcon').src;
 var userName = document.getElementById('userName').textContent.trim();
 var userId = document.getElementById('userId').textContent.trim();
 // 常用DOM集合
 var messageBoard = document.getElementById('messageBoard');//对话显示框
 var userList = document.getElementById('userList');//用户列表
 let msgInfo = document.getElementById('msgInfo');//输入框
+// let userBox = document.getElementById('userBox'); //右边栏
+// let messageBox = document.getElementById('messageBox'); //主要内容 box
 
 /*
 ** socket on/emit event
@@ -56,7 +58,7 @@ function appendUserMessage(msg,userMessage,flag){
   if(flag){
     div.classList.add("self");
   }
-  img.src = "/images/userInit/"+userMessage.icon;
+  img.src = userMessage.icon;
   div2.classList.add("userMsg");
   article.innerHTML = msg;
 
@@ -65,7 +67,6 @@ function appendUserMessage(msg,userMessage,flag){
   div2.appendChild(article);
   div.appendChild(img);
   div.appendChild(div2);
-
 
   fragment.appendChild(div);
   messageBoard.appendChild(div);
@@ -91,7 +92,7 @@ function updateUserList(users){
     var span = document.createElement('span');
     var node = document.createTextNode(users[i].username + "("+users[i].userId+")");
         div.classList.add("userListIcon");
-        img.src = "/images/userInit/"+users[i].icon;
+        img.src = users[i].icon;
         div.appendChild(img);
         span.appendChild(node);
         li.appendChild(div);
@@ -107,11 +108,9 @@ function updateUserList(users){
 }
 // 发送消息
 function sendMessage() {
-  // console.log(msgInfo)
   var msg = msgInfo.innerHTML;
   if (msg.length > 0) {
     socket.emit('message',msg); //变相触发message事件
-
     msgInfo.innerHTML = '';
   } else {
     alert('发送内容不能为空');
@@ -132,6 +131,7 @@ function getFileToPicture(event){
     freader.onload = () => {
       //解决change事件只触发一次问题
       event.target.value='';
+      console.log(freader.result);
       //添加在输入框
       let img = document.createElement('img');
           img.src = freader.result;
@@ -140,8 +140,7 @@ function getFileToPicture(event){
 
   }
 }
-// // 首页-》右侧边栏自动隐藏
-// window.onresize = debounce(displayDOM, 500);
+
 // function displayDOM() {
 //   if (document.documentElement.clientWidth < 1100) {
 //     userBox.style.display = 'none';
@@ -151,6 +150,7 @@ function getFileToPicture(event){
 //     messageBox.style.width = '80%';
 //   }
 // }
+// 函数防抖
 // function debounce(method, delay) {
 //   let timer = null;
 //   return function() {
@@ -160,5 +160,13 @@ function getFileToPicture(event){
 //     timer = setTimeout(function() {
 //       method.apply(context, args);
 //     }, delay);
+//   }
+// }
+// 首页-》右侧边栏自动隐藏
+// window.onresize = function(){
+//   console.log('on resize');
+//   if(userBox){
+//     console.log('join');
+//     debounce(displayDOM, 500);
 //   }
 // }

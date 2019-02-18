@@ -22,6 +22,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public',express.static(path.join(__dirname, 'public')));
 // Use express-session middleware for express
 app.use(session({
   secret: 'happy fat',
@@ -37,13 +38,15 @@ app.use(function(req,res,next){
   if(req.headers.referer){
     referer = new URL(req.headers.referer).pathname;
   }
-  if(req.url == '/login' || (req.url == '/users' && referer == '/login')|| (req.url == '/users/register' && referer == '/login')){
+  if(req.url == '/users/login'
+      || (req.url == '/users' && referer == '/users/login')
+      || (req.url == '/users/register' && referer == '/users/login')){
     next();
   } else if(req.session.userinfo && req.session.userinfo.username != ''){
     app.locals['userinfo'] = req.session.userinfo;//配置ejs全局参数
     next();
   }else {
-    res.redirect('/login');//重定向
+    res.redirect('/users/login');//重定向
   }
 });
 
